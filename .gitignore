@@ -1,5 +1,6 @@
 node_modules/
 .env
+.env.local
 .DS_Store
 *.log
 Backend.txt
@@ -7,3 +8,5 @@ Backend.txt
 dist/
 build/
 .idea/
+.netlify/
+.vercel/

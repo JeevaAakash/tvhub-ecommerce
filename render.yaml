@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: tvhub-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: cd tvhub-backend && npm install
+    startCommand: cd tvhub-backend && npm start
+    envVars:
+      - key: MONGODB_URI
+        scope: build,runtime
+        value: ${MONGODB_URI}
+      - key: PORT
+        scope: build,runtime
+        value: 10000
+      - key: FRONTEND_URL
+        scope: build,runtime
+        value: ${FRONTEND_URL}
+      - key: NODE_ENV
+        scope: build,runtime
+        value: production
