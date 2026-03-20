@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>About - Tv Hub.com</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #ff6b00;
+      --primary-dark: #e05200;
+      --accent: #2563eb;
+      --bg: #f5f7fb;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --card-bg: #ffffff;
+      --border-soft: #e5e7eb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255, 107, 0, 0.16) 0, transparent 55%),
+        radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.16) 0, transparent 55%),
+        var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header & nav (same style as shop) */
+    header {
+      background: #0f172a;
+      color: #f9fafb;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.35);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .header-top {
+      padding: 0.9rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: radial-gradient(circle at top left, #ffd54a, var(--primary));
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #111827;
+    }
+
+    .brand-text {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .brand-text span {
+      color: var(--primary);
+    }
+
+    .tagline {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    nav {
+      border-top: 1px solid #111827;
+      border-bottom: 1px solid #111827;
+      background: #020617;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 0.55rem 0;
+      font-size: 0.9rem;
+    }
+
+    .nav-inner a {
+      color: #cbd5f5;
+      padding: 0.32rem 0.7rem;
+      border-radius: 999px;
+      transition: background 0.12s ease, color 0.12s ease;
+    }
+
+    .nav-inner a:hover,
+    .nav-inner a.active {
+      background: rgba(148, 163, 184, 0.25);
+      color: #ffffff;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 2rem 0 1.1rem;
+    }
+
+    .hero-heading {
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-sub {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      max-width: 620px;
+    }
+
+    /* Content */
+    main {
+      flex: 1;
+      padding-bottom: 2.2rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 1.5rem;
+      align-items: flex-start;
+      margin-bottom: 1.6rem;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 0.9rem;
+      padding: 1.4rem 1.5rem;
+      box-shadow: 0 10px 22px rgba(15, 23, 42, 0.08);
+      border: 1px solid var(--border-soft);
+    }
+
+    .card + .card {
+      margin-top: 1rem;
+    }
+
+    h2.section-title {
+      font-size: 1.2rem;
+      margin-bottom: 0.7rem;
+    }
+
+    p {
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text-main);
+      margin-bottom: 0.5rem;
+    }
+
+    .muted {
+      color: var(--text-muted);
+    }
+
+    ul {
+      list-style: none;
+      padding-left: 0;
+      margin: 0.4rem 0 0;
+      font-size: 0.9rem;
+    }
+
+    ul li {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.45rem;
+      margin-bottom: 0.4rem;
+      color: var(--text-main);
+    }
+
+    .bullet-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: var(--primary);
+      margin-top: 0.42rem;
+      flex-shrink: 0;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 0.18rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid #e5e7eb;
+      font-size: 0.78rem;
+      margin: 0.16rem;
+      background: #f9fafb;
+    }
+
+    .pill span {
+      font-weight: 500;
+    }
+
+    .brands-wrap {
+      margin-top: 0.4rem;
+    }
+
+    .stat-row {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 0.6rem;
+    }
+
+    .stat {
+      flex: 1 1 130px;
+      padding: 0.8rem 0.9rem;
+      border-radius: 0.7rem;
+      background: #0f172a;
+      color: #f9fafb;
+      font-size: 0.9rem;
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.05rem;
+      margin-bottom: 0.1rem;
+    }
+
+    /* Timeline */
+    .timeline {
+      border-left: 2px solid #e5e7eb;
+      margin-top: 0.4rem;
+      padding-left: 0.9rem;
+    }
+
+    .timeline-item {
+      margin-bottom: 0.75rem;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -1.15rem;
+      top: 0.25rem;
+      width: 9px;
+      height: 9px;
+      background: var(--primary);
+      border-radius: 50%;
+      box-shadow: 0 0 0 3px rgba(248, 113, 22, 0.25);
+    }
+
+    .timeline-year {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 0.1rem;
+    }
+
+    .timeline-text {
+      font-size: 0.88rem;
+      color: var(--text-main);
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid #e5e7eb;
+      padding: 0.9rem 0 1.1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="container header-top">
+        <div class="brand">
+          <div class="brand-logo">TV</div>
+          <div>
+            <div class="brand-text">Tv<span>Hub</span>.com</div>
+            <div class="tagline">About our journey in home entertainment</div>
+          </div>
+        </div>
+      </div>
+      <nav>
+        <div class="container nav-inner">
+          <a href="code.html">Home</a>
+          <a href="SHOPPAGE.html">Shop</a>
+          <a href="About.html" class="active">About</a>
+          <a href="Contact.html">Contact</a>
+          <a href="Orders.html">My Orders</a>
+
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="hero">
+        <h1 class="hero-heading">About Tv Hub</h1>
+        <p class="hero-sub">
+          We bring together the best TVs from world‑class brands, with a simple goal:
+          make your next upgrade effortless, exciting, and worth every rupee.
+        </p>
+      </section>
+
+      <section class="grid-2">
+        <div>
+          <div class="card">
+            <h2 class="section-title">Our Story</h2>
+            <p>
+              Welcome to <strong>Tv Hub</strong>, your ultimate destination for premium televisions.
+              We are passionate about delivering cutting-edge technology and exceptional viewing
+              experiences to our customers.
+            </p>
+            <p>
+              Founded in <strong>2005</strong>, we have been committed to providing a curated selection
+              of the finest TVs from renowned brands. Our team of experts handpicks each product to
+              ensure quality, performance, and value.
+            </p>
+          </div>
+
+          <div class="card">
+            <h2 class="section-title">Our Mission</h2>
+            <p>
+              Our mission is to redefine home entertainment by offering a diverse range of televisions
+              that cater to every lifestyle and budget. Whether you’re building a home theatre or
+              upgrading a bedroom TV, we want your buying experience to feel simple and confident.
+            </p>
+            <p class="muted">
+              From picture quality and sound to smart features and design, we obsess over the details
+              so you don’t have to.
+            </p>
+          </div>
+        </div>
+
+        <div>
+          <div class="card">
+            <h2 class="section-title">Why Choose Us?</h2>
+            <ul>
+              <li>
+                <span class="bullet-dot"></span>
+                <span>Wide selection of top‑quality TVs across sizes and price ranges.</span>
+              </li>
+              <li>
+                <span class="bullet-dot"></span>
+                <span>Expert guidance and honest recommendations from our support team.</span>
+              </li>
+              <li>
+                <span class="bullet-dot"></span>
+                <span>Competitive pricing, seasonal offers, and value‑for‑money bundles.</span>
+              </li>
+              <li>
+                <span class="bullet-dot"></span>
+                <span>Fast, secure delivery with safe packaging.</span>
+              </li>
+              <li>
+                <span class="bullet-dot"></span>
+                <span>Customer satisfaction at the heart of everything we do.</span>
+              </li>
+            </ul>
+
+            <div class="stat-row">
+              <div class="stat">
+                <strong>10+ Years</strong>
+                of serving TV buyers
+              </div>
+              <div class="stat">
+                <strong>5+ Brands</strong>
+                curated and growing
+              </div>
+            </div>
+          </div>
+
+          <div class="card">
+            <h2 class="section-title">Our Top Brands</h2>
+            <p class="muted">We carefully work with leading brands to ensure trust and performance.</p>
+            <div class="brands-wrap">
+              <div class="pill"><span>SONY</span></div>
+              <div class="pill"><span>SAMSUNG</span></div>
+              <div class="pill"><span>LG</span></div>
+              <div class="pill"><span>XIAOMI</span></div>
+              <div class="pill"><span>HAIER</span></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="card">
+          <h2 class="section-title">Our Journey</h2>
+          <div class="timeline">
+            <div class="timeline-item">
+              <div class="timeline-year">2005</div>
+              <div class="timeline-text">Tv Hub was established as a small electronics retail store, focusing on providing quality televisions and home entertainment products to customers.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">2017</div>
+              <div class="timeline-text">Expanded to 4K and Smart TV collections from leading brands.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">2020</div>
+              <div class="timeline-text">Introduced curated bundles and improved support for online buyers.</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">Today</div>
+              <div class="timeline-text">
+                Continually updating our catalog with the latest OLED, QLED, and Google/Fire TVs to keep you future‑ready.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      &copy; <span id="year"></span> TvHub.com &mdash; Built for TV lovers.
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>

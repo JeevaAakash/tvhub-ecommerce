@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<script>
+if (!localStorage.getItem("userEmail")) {
+  window.location.href = "LOGIN.html";
+}
+</script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Shop @ Tv Hub.com</title>
+
+  <!-- Modern font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #ff6b00;
+      --primary-dark: #e05200;
+      --accent: #2563eb;
+      --bg: #f5f7fb;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --card-bg: #ffffff;
+      --border-soft: #e5e7eb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255, 107, 0, 0.16) 0, transparent 55%),
+        radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.16) 0, transparent 55%),
+        var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header */
+    header {
+      background: #0f172a;
+      color: #f9fafb;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.35);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .header-top {
+      padding: 0.9rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: radial-gradient(circle at top left, #ffd54a, var(--primary));
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #111827;
+    }
+
+    .brand-text {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+
+    .brand-text span {
+      color: var(--primary);
+    }
+
+    .tagline {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .header-badge {
+      font-size: 0.8rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: #e5e7eb;
+    }
+
+    .btn-login {
+      padding: 0.45rem 1.1rem;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(248, 113, 22, 0.4);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(248, 113, 22, 0.55);
+      opacity: 0.97;
+    }
+
+    /* Nav */
+    nav {
+      border-top: 1px solid #111827;
+      border-bottom: 1px solid #111827;
+      background: #020617;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 0.55rem 0;
+      font-size: 0.9rem;
+    }
+
+    .nav-inner a {
+      color: #cbd5f5;
+      padding: 0.32rem 0.7rem;
+      border-radius: 999px;
+      transition: background 0.12s ease, color 0.12s ease;
+    }
+
+    .nav-inner a:hover,
+    .nav-inner a.active {
+      background: rgba(148, 163, 184, 0.25);
+      color: #ffffff;
+    }
+
+    /* Hero / title */
+    .hero-bar {
+      padding: 1.6rem 0 0.6rem;
+    }
+
+    .hero-heading {
+      font-size: 1.7rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-sub {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Product grid */
+    .products-section {
+      padding: 0.7rem 0 2.4rem;
+      flex: 1;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1.4rem;
+    }
+
+    @media (max-width: 960px) {
+      .products-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 640px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border-radius: 0.95rem;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+      border: 1px solid var(--border-soft);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .product-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 32px rgba(15, 23, 42, 0.15);
+    }
+
+    .product-img-wrap {
+      position: relative;
+      background: #020617;
+    }
+
+    .product-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-tag {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      background: rgba(15, 23, 42, 0.85);
+      color: #f9fafb;
+      font-size: 0.7rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+    }
+
+    .product-body {
+      padding: 0.95rem 1rem 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      flex: 1;
+    }
+
+    .product-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      line-height: 1.35;
+      min-height: 2.6em;
+    }
+
+    .product-desc {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      min-height: 2.4em;
+    }
+
+    .product-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 0.3rem;
+    }
+
+    .price-main {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    .price-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.8rem;
+    }
+
+    .btn {
+      flex: 1;
+      border-radius: 999px;
+      padding: 0.45rem 0.6rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: background 0.12s ease, transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #ffffff;
+      box-shadow: 0 10px 22px rgba(248, 113, 22, 0.35);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(248, 113, 22, 0.5);
+    }
+
+    .btn-outline {
+      background: #ffffff;
+      color: #0f172a;
+      border: 1px solid #d1d5db;
+    }
+
+    .btn-outline:hover {
+      background: #f3f4f6;
+    }
+
+    /* Footer (simple) */
+    footer {
+      border-top: 1px solid #e5e7eb;
+      padding: 0.9rem 0 1.1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="container header-top">
+        <div>
+          <div class="brand">
+            <div class="brand-logo">TV</div>
+            <div>
+              <div class="brand-text">Tv<span>Hub</span>.com</div>
+              <div class="tagline">Premium TVs, curated for you</div>
+            </div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <span class="header-badge">Free delivery on select models</span>
+          
+        </div>
+      </div>
+      <nav>
+        <div class="container nav-inner">
+          <a href="code.html">Home</a>
+          <a href="SHOPPAGE.html" class="active">Shop</a>
+          <a href="About.html">About</a>
+          <a href="Contact.html">Contact</a>
+          <a href="Orders.html">My Orders</a>
+
+
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">
+      <section class="hero-bar">
+        <h1 class="hero-heading">Shop TVs</h1>
+        <p class="hero-sub">Browse 32&quot;–65&quot; 4K and Smart TVs from top brands.</p>
+      </section>
+
+      <section class="products-section">
+        <div class="products-grid">
+          <!-- Product 1 -->
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <span class="product-tag">New 2024</span>
+              <img class="product-img" src="https://images.samsung.com/is/image/samsung/p6pim/in/qa50qn90caklxl/gallery/in-qled-qn90c-qa50qn90caklxl-535864713?$684_547_PNG$" alt="SAMSUNG Neo QLED 4K Smart TV">
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">SAMSUNG Neo QLED 4K Smart TV 2024 NEW MODEL 65S55L, 65 inch</h3>
+              <p class="product-desc">65-inch Neo QLED TV with 4K display, ultra-slim design, and smart features.</p>
+              <div class="product-meta">
+                <div>
+                  <div class="price-main">₹1,79,999</div>
+                  <div class="price-sub">Inclusive of all taxes</div>
+                </div>
+              </div>
+              <div class="product-actions">
+                <button
+                  class="btn btn-outline add-to-cart"
+                  data-name="SAMSUNG Neo QLED 4K Smart TV 2024 NEW MODEL 65S55L, 65 inch"
+                  data-price="179999"
+                  data-image="https://images.samsung.com/is/image/samsung/p6pim/in/qa50qn90caklxl/gallery/in-qled-qn90c-qa50qn90caklxl-535864713?$684_547_PNG$"
+                >Add to Cart</button>
+                <button
+                  class="btn btn-primary buy-now"
+                  data-name="SAMSUNG Neo QLED 4K Smart TV 2024 NEW MODEL 65S55L, 65 inch"
+                  data-price="179999"
+                  data-image="https://images.samsung.com/is/image/samsung/p6pim/in/qa50qn90caklxl/gallery/in-qled-qn90c-qa50qn90caklxl-535864713?$684_547_PNG$"
+                >Buy Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 2 -->
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <span class="product-tag">4K UHD</span>
+              <img class="product-img" src="https://m.media-amazon.com/images/I/8159EvuNJaL._SL1500_.jpg" alt="SONY BRAVIA 4K UHD TV">
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">SONY BRAVIA 4K UHD GOOGLE TV (2024 NEW MODEL) 55X75L, 55 inch</h3>
+              <p class="product-desc">55-inch Ultra HD TV with stunning 4K visuals and Google TV experience.</p>
+              <div class="product-meta">
+                <div>
+                  <div class="price-main">₹55,999</div>
+                  <div class="price-sub">Limited-time offer</div>
+                </div>
+              </div>
+              <div class="product-actions">
+                <button
+                  class="btn btn-outline add-to-cart"
+                  data-name="SONY BRAVIA 4K UHD GOOGLE TV (2024 NEW MODEL) 55X75L, 55 inch"
+                  data-price="55999"
+                  data-image="https://m.media-amazon.com/images/I/8159EvuNJaL._SL1500_.jpg"
+                >Add to Cart</button>
+                <button
+                  class="btn btn-primary buy-now"
+                  data-name="SONY BRAVIA 4K UHD GOOGLE TV (2024 NEW MODEL) 55X75L, 55 inch"
+                  data-price="55999"
+                  data-image="https://m.media-amazon.com/images/I/8159EvuNJaL._SL1500_.jpg"
+                >Buy Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 3 -->
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <span class="product-tag">NanoCell</span>
+              <img class="product-img" src="https://m.media-amazon.com/images/I/71VFEy7r5DL._SL1500_.jpg" alt="LG 4K Ultra HD NanoCell TV">
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">LG 139 cm (55") 4K Ultra HD Smart NanoCell TV 55NANO73SQA (2024)</h3>
+              <p class="product-desc">55-inch NanoCell display with vivid colors and smart streaming apps.</p>
+              <div class="product-meta">
+                <div>
+                  <div class="price-main">₹79,999</div>
+                  <div class="price-sub">EMI options available</div>
+                </div>
+              </div>
+              <div class="product-actions">
+                <button
+                  class="btn btn-outline add-to-cart"
+                  data-name="LG 139 cm (55) 4K Ultra HD Smart NanoCell TV 55NANO73SQA (2024)"
+                  data-price="79999"
+                  data-image="https://m.media-amazon.com/images/I/71VFEy7r5DL._SL1500_.jpg"
+                >Add to Cart</button>
+                <button
+                  class="btn btn-primary buy-now"
+                  data-name="LG 139 cm (55) 4K Ultra HD Smart NanoCell TV 55NANO73SQA (2024)"
+                  data-price="79999"
+                  data-image="https://m.media-amazon.com/images/I/71VFEy7r5DL._SL1500_.jpg"
+                >Buy Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 4 -->
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <span class="product-tag">QLED</span>
+              <img class="product-img" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAA..." alt="TCL 4K Ultra HD Smart QLED TV">
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">TCL 139 cm (55") 4K Ultra HD Smart QLED Google TV 55T6G (2024)</h3>
+              <p class="product-desc">55-inch QLED Google TV with rich contrast and premium design.</p>
+              <div class="product-meta">
+                <div>
+                  <div class="price-main">₹67,999</div>
+                  <div class="price-sub">Free wall-mount installation</div>
+                </div>
+              </div>
+              <div class="product-actions">
+                <button
+                  class="btn btn-outline add-to-cart"
+                  data-name="TCL 139 cm (55) 4K Ultra HD Smart QLED Google TV 55T6G (2024)"
+                  data-price="67999"
+                  data-image=""
+                >Add to Cart</button>
+                <button
+                  class="btn btn-primary buy-now"
+                  data-name="TCL 139 cm (55) 4K Ultra HD Smart QLED Google TV 55T6G (2024)"
+                  data-price="67999"
+                  data-image=""
+                >Buy Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 5 -->
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <span class="product-tag">Dolby Vision</span>
+              <img class="product-img" src="data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/2wCEAA..." alt="Xiaomi X Pro 4K TV">
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">Xiaomi 138 cm (55") X Pro 4K Dolby Vision IQ Series Smart Google TV</h3>
+              <p class="product-desc">55-inch Dolby Vision IQ TV with slim bezel and smart Google TV UI.</p>
+              <div class="product-meta">
+                <div>
+                  <div class="price-main">₹56,999</div>
+                  <div class="price-sub">Bestseller pick</div>
+                </div>
+              </div>
+              <div class="product-actions">
+                <button
+                  class="btn btn-outline add-to-cart"
+                  data-name="Xiaomi 138 cm (55) X Pro 4K Dolby Vision IQ Series Smart Google TV"
+                  data-price="56999"
+                  data-image=""
+                >Add to Cart</button>
+                <button
+                  class="btn btn-primary buy-now"
+                  data-name="Xiaomi 138 cm (55) X Pro 4K Dolby Vision IQ Series Smart Google TV"
+                  data-price="56999"
+                  data-image=""
+                >Buy Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 6 -->
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <span class="product-tag">55" 4K</span>
+              <img class="product-img" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQYmURCzFfglyofqLIImumIXu6EwJP0sN0JA&s" alt="Haier 4K Dolby Vision Google TV">
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">Haier 138 cm (55") 4K Dolby Vision HDR10+ Google Smart TV H69G4</h3>
+              <p class="product-desc">55-inch 4K HDR10+ TV with Google built-in and sleek design.</p>
+              <div class="product-meta">
+                <div>
+                  <div class="price-main">₹99,999</div>
+                  <div class="price-sub">Premium series</div>
+                </div>
+              </div>
+              <div class="product-actions">
+                <button
+                  class="btn btn-outline add-to-cart"
+                  data-name="Haier 138 cm (55) 4K Dolby Vision HDR10+ Google Smart TV H69G4"
+                  data-price="99999"
+                  data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQYmURCzFfglyofqLIImumIXu6EwJP0sN0JA&s"
+                >Add to Cart</button>
+                <button
+                  class="btn btn-primary buy-now"
+                  data-name="Haier 138 cm (55) 4K Dolby Vision HDR10+ Google Smart TV H69G4"
+                  data-price="99999"
+                  data-image="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQYmURCzFfglyofqLIImumIXu6EwJP0sN0JA&s"
+                >Buy Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 7 -->
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <span class="product-tag">32" HD</span>
+              <img class="product-img" src="https://m.media-amazon.com/images/I/819Lw2PE8tL._SL1500_.jpg" alt="Redmi 32 inch Fire TV">
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">Redmi 80 cm (32") F Series HD Ready Smart LED Fire TV</h3>
+              <p class="product-desc">32-inch compact TV with Fire TV experience built in.</p>
+              <div class="product-meta">
+                <div>
+                  <div class="price-main">₹11,999</div>
+                  <div class="price-sub">Perfect for bedrooms</div>
+                </div>
+              </div>
+              <div class="product-actions">
+                <button
+                  class="btn btn-outline add-to-cart"
+                  data-name="Redmi 80 cm (32) F Series HD Ready Smart LED Fire TV"
+                  data-price="11999"
+                  data-image="https://m.media-amazon.com/images/I/819Lw2PE8tL._SL1500_.jpg"
+                >Add to Cart</button>
+                <button
+                  class="btn btn-primary buy-now"
+                  data-name="Redmi 80 cm (32) F Series HD Ready Smart LED Fire TV"
+                  data-price="11999"
+                  data-image="https://m.media-amazon.com/images/I/819Lw2PE8tL._SL1500_.jpg"
+                >Buy Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 8 -->
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <span class="product-tag">32" QLED</span>
+              <img class="product-img" src="https://m.media-amazon.com/images/I/71Y9lb-wnhL._SL1500_.jpg" alt="Acer 32 inch QLED Google TV">
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">Acer 80 cm (32") V Series HD Ready Smart QLED Google TV</h3>
+              <p class="product-desc">32-inch QLED panel with rich colors and Google TV interface.</p>
+              <div class="product-meta">
+                <div>
+                  <div class="price-main">₹13,999</div>
+                  <div class="price-sub">Great value pick</div>
+                </div>
+              </div>
+              <div class="product-actions">
+                <button
+                  class="btn btn-outline add-to-cart"
+                  data-name="Acer 80 cm (32) V Series HD Ready Smart QLED Google TV"
+                  data-price="13999"
+                  data-image="https://m.media-amazon.com/images/I/71Y9lb-wnhL._SL1500_.jpg"
+                >Add to Cart</button>
+                <button
+                  class="btn btn-primary buy-now"
+                  data-name="Acer 80 cm (32) V Series HD Ready Smart QLED Google TV"
+                  data-price="13999"
+                  data-image="https://m.media-amazon.com/images/I/71Y9lb-wnhL._SL1500_.jpg"
+                >Buy Now</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Product 9 -->
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <span class="product-tag">43" 4K</span>
+              <img class="product-img" src="https://m.media-amazon.com/images/I/71hXI6RMKXL._SL1500_.jpg" alt="iFFALCON 43 inch 4K TV">
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">iFFALCON 108 cm (43") 4K Ultra HD Smart LED Google TV</h3>
+              <p class="product-desc">43-inch 4K Google TV with slim bezel and vibrant panel.</p>
+              <div class="product-meta">
+                <div>
+                  <div class="price-main">₹18,999</div>
+                  <div class="price-sub">Ideal for living rooms</div>
+                </div>
+              </div>
+              <div class="product-actions">
+                <button
+                  class="btn btn-outline add-to-cart"
+                  data-name="iFFALCON 108 cm (43) 4K Ultra HD Smart LED Google TV"
+                  data-price="18999"
+                  data-image="https://m.media-amazon.com/images/I/71hXI6RMKXL._SL1500_.jpg"
+                >Add to Cart</button>
+                <button
+                  class="btn btn-primary buy-now"
+                  data-name="iFFALCON 108 cm (43) 4K Ultra HD Smart LED Google TV"
+                  data-price="18999"
+                  data-image="https://m.media-amazon.com/images/I/71hXI6RMKXL._SL1500_.jpg"
+                >Buy Now</button>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      &copy; <span id="year"></span> TvHub.com &mdash; All rights reserved.
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Helper: add product to Orders list (orders.html)
+    function addToOrdersList(product) {
+      const key = 'tvhub_orders';
+      let list = [];
+      try {
+        list = JSON.parse(localStorage.getItem(key)) || [];
+      } catch (e) {
+        list = [];
+      }
+      list.push({
+        id: Date.now(),
+        name: product.name,
+        price: product.price,
+        image: product.image
+      });
+      localStorage.setItem(key, JSON.stringify(list));
+    }
+
+    // Add to Cart -> save to orders + go to orders.html
+    document.querySelectorAll('.add-to-cart').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const product = {
+          name: this.dataset.name,
+          price: Number(this.dataset.price),
+          image: this.dataset.image || ''
+        };
+        addToOrdersList(product);
+        window.location.href = 'orders.html';
+      });
+    });
+
+    // Buy Now -> save to orders + set selected + go to checkout
+    document.querySelectorAll('.buy-now').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        const product = {
+          name: this.dataset.name,
+          price: Number(this.dataset.price),
+          image: this.dataset.image || ''
+        };
+        addToOrdersList(product);
+        localStorage.setItem('tvhub_selected_product', JSON.stringify(product));
+        window.location.href = 'checkout.html';
+      });
+    });
+  </script>
+</body>
+</html>

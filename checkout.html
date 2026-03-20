@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<script>
+if (!localStorage.getItem("userEmail")) {
+  window.location.href = "LOGIN.html";
+}
+</script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Checkout - Tv Hub.com</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #ff6b00;
+      --primary-dark: #e05200;
+      --accent: #2563eb;
+      --bg: #f5f7fb;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --card-bg: #ffffff;
+      --border-soft: #e5e7eb;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255, 107, 0, 0.16) 0, transparent 55%),
+        radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.16) 0, transparent 55%),
+        var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    a { text-decoration: none; color: inherit; }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header / Nav (same family) */
+    header {
+      background: #0f172a;
+      color: #f9fafb;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.35);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .header-top {
+      padding: 0.9rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .brand-logo {
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      background: radial-gradient(circle at top left, #ffd54a, var(--primary));
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #111827;
+    }
+
+    .brand-text { font-size: 1.2rem; font-weight: 600; }
+
+    .brand-text span { color: var(--primary); }
+
+    .tagline { font-size: 0.8rem; color: #9ca3af; }
+
+    nav {
+      border-top: 1px solid #111827;
+      border-bottom: 1px solid #111827;
+      background: #020617;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 0.55rem 0;
+      font-size: 0.9rem;
+    }
+
+    .nav-inner a {
+      color: #cbd5f5;
+      padding: 0.32rem 0.7rem;
+      border-radius: 999px;
+      transition: background 0.12s ease, color 0.12s ease;
+    }
+
+    .nav-inner a:hover,
+    .nav-inner a.active {
+      background: rgba(148, 163, 184, 0.25);
+      color: #ffffff;
+    }
+
+    /* Content */
+    main {
+      flex: 1;
+      padding: 2rem 0 2.4rem;
+    }
+
+    .page-title {
+      font-size: 1.7rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .page-subtitle {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 1.4rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      gap: 1.4rem;
+      align-items: flex-start;
+    }
+
+    @media (max-width: 820px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 0.9rem;
+      padding: 1.3rem 1.4rem 1.2rem;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+      border: 1px solid var(--border-soft);
+    }
+
+    .product-summary {
+      display: flex;
+      gap: 0.9rem;
+    }
+
+    .product-img {
+      width: 110px;
+      height: 80px;
+      object-fit: cover;
+      border-radius: 0.6rem;
+      background: #020617;
+      flex-shrink: 0;
+    }
+
+    .product-name {
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .product-meta {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 0.3rem;
+    }
+
+    .price-row {
+      font-size: 0.9rem;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0.25rem;
+    }
+
+    .price-label { color: var(--text-muted); }
+
+    .price-value { font-weight: 500; }
+
+    .price-total {
+      font-size: 1.02rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    .mt-small { margin-top: 0.6rem; }
+
+    /* Payment methods */
+    .payment-title {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .payment-option {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.35rem;
+      font-size: 0.9rem;
+    }
+
+    .payment-note {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-top: 0.4rem;
+    }
+
+    .btn-confirm {
+      margin-top: 0.9rem;
+      padding: 0.75rem 1.4rem;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #ffffff;
+      border: none;
+      border-radius: 999px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 22px rgba(248, 113, 22, 0.35);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+      width: 100%;
+    }
+
+    .btn-confirm:hover:not(:disabled) {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(248, 113, 22, 0.5);
+      opacity: 0.97;
+    }
+
+    .btn-confirm:disabled {
+      opacity: 0.7;
+      cursor: default;
+      box-shadow: none;
+    }
+
+    /* Success animation overlay */
+    .success-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease-out;
+      z-index: 40;
+    }
+
+    .success-overlay.show {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .success-card {
+      background: #ffffff;
+      border-radius: 1rem;
+      padding: 1.8rem 2rem 1.6rem;
+      max-width: 360px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.45);
+      animation: pop-in 0.4s ease-out;
+    }
+
+    .success-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 999px;
+      border: 3px solid #22c55e;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      color: #22c55e;
+      font-size: 1.7rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .success-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+    }
+
+    .success-text {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 0.9rem;
+    }
+
+    .btn-success-close {
+      padding: 0.55rem 1.3rem;
+      border-radius: 999px;
+      border: none;
+      background: #0f172a;
+      color: #f9fafb;
+      font-size: 0.88rem;
+      cursor: pointer;
+    }
+
+    @keyframes pop-in {
+      0% { transform: scale(0.85); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid #e5e7eb;
+      padding: 0.9rem 0 1.1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="container header-top">
+        <div class="brand">
+          <div class="brand-logo">TV</div>
+          <div>
+            <div class="brand-text">Tv<span>Hub</span>.com</div>
+            <div class="tagline">Secure checkout</div>
+          </div>
+        </div>
+      </div>
+      <nav>
+        <div class="container nav-inner">
+          <a href="code.html">Home</a>
+          <a href="SHOPPAGE.html">Shop</a>
+          <a href="About.html">About</a>
+          <a href="Contact.html">Contact</a>
+          <a href="checkout.html">Ordered</a>
+          <a href="Orders.html">Orders</a>
+
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">
+      <h1 class="page-title">Checkout</h1>
+      <p class="page-subtitle" id="checkout-subtitle">
+        Review your TV and choose a payment method to place your order.
+      </p>
+
+      <section class="grid" id="checkout-content">
+        <!-- Filled by JavaScript -->
+      </section>
+    </main>
+
+    <footer>
+      &copy; <span id="year"></span> TvHub.com &mdash; All rights reserved.
+    </footer>
+  </div>
+
+  <!-- Success overlay -->
+  <div class="success-overlay" id="success-overlay">
+    <div class="success-card">
+      <div class="success-icon">✓</div>
+      <div class="success-title">Ordered Successfully</div>
+      <div class="success-text">
+        Thank you for shopping with Tv Hub. Your order has been placed.
+      </div>
+      <button class="btn-success-close" id="success-close">Continue Shopping</button>
+    </div>
+  </div>
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  const contentEl = document.getElementById('checkout-content');
+  const subtitleEl = document.getElementById('checkout-subtitle');
+  const raw = localStorage.getItem('tvhub_selected_product');
+
+  if (!raw) {
+    subtitleEl.textContent =
+      'No product selected. Please choose a TV from the shop page.';
+    contentEl.innerHTML =
+      '<p style="font-size:0.9rem; color:#6b7280;">Go back to the <a href="SHOPPAGE.html" style="color:#2563eb;">Shop page</a> to select a TV.</p>';
+  } else {
+    const product = JSON.parse(raw);
+    const basePrice = product.price || 0;
+    const shipping = 0;
+    const total = basePrice + shipping;
+
+    function formatINR(value) {
+      return '₹' + value.toLocaleString('en-IN');
+    }
+
+    contentEl.innerHTML = `
+      <div class="card">
+        <div class="product-summary">
+          <img class="product-img" src="${product.image || ''}" alt="${product.name}" />
+          <div>
+            <div class="product-name">${product.name}</div>
+            <div class="product-meta">Order will be delivered within 5–7 business days.</div>
+          </div>
+        </div>
+        <div class="mt-small">
+          <div class="price-row">
+            <span class="price-label">Item price</span>
+            <span class="price-value">${formatINR(basePrice)}</span>
+          </div>
+          <div class="price-row">
+            <span class="price-label">Shipping</span>
+            <span class="price-value">Free</span>
+          </div>
+          <div class="price-row" style="margin-top:0.4rem;">
+            <span class="price-label">Total</span>
+            <span class="price-total">${formatINR(total)}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="payment-title">Payment Method</div>
+        <label><input type="radio" name="payment" value="upi" checked /> UPI</label><br>
+        <label><input type="radio" name="payment" value="card" /> Card</label><br>
+        <label><input type="radio" name="payment" value="cod" /> Cash on Delivery</label><br><br>
+        <button class="btn-confirm" id="btn-confirm">Confirm Order</button>
+      </div>
+    `;
+
+    const confirmBtn = document.getElementById('btn-confirm');
+    const successOverlay = document.getElementById('success-overlay');
+    const successClose = document.getElementById('success-close');
+
+    confirmBtn.addEventListener('click', async function () {
+
+      const userEmail = localStorage.getItem("userEmail");
+
+      if (!userEmail) {
+        alert("Please login first");
+        window.location.href = "LOGIN.html";
+        return;
+      }
+
+      const selectedPayment =
+        document.querySelector('input[name="payment"]:checked').value;
+
+      try {
+        const response = await fetch("http://localhost:5000/api/orders", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            userEmail: userEmail,
+            productName: product.name,
+            price: total,
+            paymentMethod: selectedPayment
+          })
+        });
+
+        if (response.ok) {
+          successOverlay.classList.add('show');
+          localStorage.removeItem('tvhub_selected_product');
+        } else {
+          alert("Order failed");
+        }
+
+      } catch (error) {
+        alert("Server not responding");
+      }
+    });
+
+    successClose.addEventListener('click', function () {
+      window.location.href = 'SHOPPAGE.html';
+    });
+  }
+</script>
+</body>
+</html>

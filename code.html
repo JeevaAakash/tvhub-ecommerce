@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<script>
+if (!localStorage.getItem("userEmail")) {
+  window.location.href = "LOGIN.html";
+}
+</script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tv Hub.com</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <style>
+    :root {
+      --primary: #ff6b00;
+      --primary-dark: #e05200;
+      --accent: #2563eb;
+      --bg: #f5f7fb;
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --card-bg: #ffffff;
+      --border-soft: #e5e7eb;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(255, 107, 0, 0.16) 0, transparent 55%),
+        radial-gradient(circle at bottom right, rgba(37, 99, 235, 0.16) 0, transparent 55%),
+        var(--bg);
+      color: var(--text-main);
+      min-height: 100vh;
+    }
+
+    a {
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* Header + Nav (same style family as login/shop/about) */
+    header {
+      background: #0f172a;
+      color: #f9fafb;
+      box-shadow: 0 2px 6px rgba(15, 23, 42, 0.35);
+      position: sticky;
+      top: 0;
+      z-index: 20;
+    }
+
+    .header-top {
+      padding: 0.9rem 0;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+    }
+
+    .brand-logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      background: radial-gradient(circle at top left, #ffd54a, var(--primary));
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: #111827;
+      font-family: "Orbitron", system-ui, sans-serif;
+    }
+
+    .brand-text {
+      font-size: 1.25rem;
+      font-weight: 600;
+    }
+
+    .brand-text span {
+      color: var(--primary);
+    }
+
+    .tagline {
+      font-size: 0.8rem;
+      color: #9ca3af;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .header-badge {
+      font-size: 0.8rem;
+      padding: 0.15rem 0.6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      color: #e5e7eb;
+    }
+
+    .btn-login {
+      padding: 0.45rem 1.1rem;
+      border-radius: 999px;
+      border: none;
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #ffffff;
+      font-size: 0.9rem;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 10px 22px rgba(248, 113, 22, 0.4);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease;
+    }
+
+    .btn-login:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(248, 113, 22, 0.52);
+      opacity: 0.97;
+    }
+
+    nav {
+      border-top: 1px solid #111827;
+      border-bottom: 1px solid #111827;
+      background: #020617;
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding: 0.55rem 0;
+      font-size: 0.9rem;
+    }
+
+    .nav-inner a {
+      color: #cbd5f5;
+      padding: 0.32rem 0.7rem;
+      border-radius: 999px;
+      transition: background 0.12s ease, color 0.12s ease;
+    }
+
+    .nav-inner a:hover,
+    .nav-inner a.active {
+      background: rgba(148, 163, 184, 0.25);
+      color: #ffffff;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 2.2rem 0 1.5rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1.5fr) minmax(0, 1.2fr);
+      gap: 2rem;
+      align-items: center;
+    }
+
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .hero-title {
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 0.6rem;
+    }
+
+    .hero-title span {
+      color: var(--primary);
+    }
+
+    .hero-sub {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 1.1rem;
+      max-width: 520px;
+    }
+
+    .hero-badges {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.2rem;
+      font-size: 0.8rem;
+      color: #4b5563;
+    }
+
+    .hero-badges span {
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background: #f9fafb;
+      border: 1px solid #e5e7eb;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+    }
+
+    .btn {
+      border-radius: 999px;
+      padding: 0.55rem 1.3rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      border: none;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease, color 0.12s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: #ffffff;
+      box-shadow: 0 10px 22px rgba(248, 113, 22, 0.4);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 14px 30px rgba(248, 113, 22, 0.52);
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid #d1d5db;
+      color: #111827;
+    }
+
+    .btn-outline:hover {
+      background: #f3f4f6;
+    }
+
+    .hero-visual {
+      background: radial-gradient(circle at top, rgba(15, 23, 42, 0.95), #020617);
+      border-radius: 1.3rem;
+      padding: 1.1rem 1.1rem 1rem;
+      box-shadow: 0 20px 40px rgba(15, 23, 42, 0.8);
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      color: #e5e7eb;
+    }
+
+    .hero-visual img {
+      width: 100%;
+      border-radius: 1rem;
+      object-fit: cover;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-visual h3 {
+      font-size: 1rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .hero-visual p {
+      font-size: 0.85rem;
+      color: #9ca3af;
+      margin-bottom: 0.4rem;
+    }
+
+    .hero-visual-price {
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: #f97316;
+    }
+
+    /* Featured products */
+    .section {
+      padding: 0.5rem 0 2.4rem;
+    }
+
+    .section-title {
+      font-size: 1.3rem;
+      font-weight: 600;
+      margin-bottom: 1.1rem;
+    }
+
+    .products-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.4rem;
+    }
+
+    @media (max-width: 800px) {
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    .product-card {
+      background: var(--card-bg);
+      border-radius: 0.95rem;
+      overflow: hidden;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+      border: 1px solid var(--border-soft);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .product-img-wrap {
+      background: #020617;
+    }
+
+    .product-img-wrap img {
+      width: 100%;
+      height: 210px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .product-body {
+      padding: 0.9rem 1rem 1.05rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+      flex: 1;
+    }
+
+    .product-title {
+      font-size: 0.96rem;
+      font-weight: 600;
+      line-height: 1.4;
+      min-height: 2.5em;
+    }
+
+    .product-desc {
+      font-size: 0.84rem;
+      color: var(--text-muted);
+      min-height: 2.3em;
+    }
+
+    .product-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 0.2rem;
+    }
+
+    .price-main {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--primary-dark);
+    }
+
+    .price-sub {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    .product-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.7rem;
+    }
+
+    .btn-small {
+      padding: 0.45rem 0.7rem;
+      font-size: 0.84rem;
+      flex: 1;
+    }
+
+    /* Footer */
+    footer {
+      border-top: 1px solid #e5e7eb;
+      padding: 0.9rem 0 1.1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="container header-top">
+        <div class="brand">
+          <div class="brand-logo">TV</div>
+          <div>
+            <div class="brand-text">Tv<span>Hub</span>.com</div>
+            <div class="tagline">Experience TV like never before</div>
+          </div>
+        </div>
+        <div class="header-actions">
+          <span class="header-badge">Premium 4K & Smart TVs</span>
+          
+          <a href="LOGIN.html" class="login-btn" id="loginBtn">Login</a>
+<span id="welcomeUser" style="margin-left:10px;color:#ff6b00;font-weight:600;"></span>
+          <button id="logoutBtn" style="margin-left:10px;padding:5px 10px;border:none;background:#ff6b00;color:white;border-radius:5px;cursor:pointer;display:none;">
+Logout
+</button>
+
+        </div>
+      </div>
+      <nav>
+        <div class="container nav-inner">
+          <a href="code.html" class="active">Home</a>
+          <a href="SHOPPAGE.html">Shop</a>
+          <a href="About.html">About</a>
+          <a href="Contact.html">Contact</a>
+          <a href="Orders.html">My Orders</a>
+
+  
+        </div>
+      </nav>
+    </header>
+
+    <main class="container">
+      <!-- Hero -->
+      <section class="hero">
+        <div>
+          <h1 class="hero-title">
+            Upgrade your <span>home entertainment</span> with the perfect TV.
+          </h1>
+          <p class="hero-sub">
+            From 32&quot; smart TVs to 65&quot; 4K QLED giants, Tv Hub brings you a curated selection
+            of top brands at great prices.
+          </p>
+          <div class="hero-badges">
+            <span>✔ 100% Genuine brands</span>
+            <span>✔ Easy delivery & setup</span>
+            <span>✔ Smart TV & 4K ready</span>
+          </div>
+          <div class="hero-actions">
+            <a href="SHOPPAGE.html" class="btn btn-primary">Shop TVs</a>
+            <a href="About.html" class="btn btn-outline">Why Tv Hub?</a>
+          </div>
+        </div>
+
+        <div class="hero-visual">
+          <img src="https://images.samsung.com/is/image/samsung/p6pim/in/qa50qn90caklxl/gallery/in-qled-qn90c-qa50qn90caklxl-535864713?$684_547_PNG$"
+               alt="Featured Samsung Neo QLED TV" />
+          <h3>SAMSUNG Neo QLED 4K Smart TV 65S55L</h3>
+          <p>65&quot; 4K QLED, ultra-slim design, vibrant picture & smart apps.</p>
+          <div class="hero-visual-price">₹1,79,999</div>
+        </div>
+      </section>
+
+      <!-- Featured TVs -->
+      <section class="section">
+        <h2 class="section-title">Featured TVs</h2>
+        <div class="products-grid">
+          <!-- SONY -->
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <img
+                src="https://m.media-amazon.com/images/I/8159EvuNJaL._SL1500_.jpg"
+                alt="SONY BRAVIA 4K UHD GOOGLE TV 55 inch"
+              />
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">
+                SONY BRAVIA 4K UHD GOOGLE TV 2024 NEW MODEL 55X75L, 55 inch
+              </h3>
+              <p class="product-desc">
+                55&quot; 4K UHD panel with Google TV, built‑in apps, and powerful sound for a cinema‑like experience.
+              </p>
+              <div class="product-meta">
+                <div>
+                  <div class="price-main">₹55,999</div>
+                  <div class="price-sub">Popular choice for living rooms</div>
+                </div>
+              </div>
+              <div class="product-actions">
+                <button class="btn btn-outline btn-small">Add to Cart</button>
+                <a href="SHOP PAGE.html" class="btn btn-primary btn-small">View Details</a>
+              </div>
+            </div>
+          </div>
+
+          <!-- SAMSUNG -->
+          <div class="product-card">
+            <div class="product-img-wrap">
+              <img
+                src="https://images.samsung.com/is/image/samsung/p6pim/in/qa50qn90caklxl/gallery/in-qled-qn90c-qa50qn90caklxl-535864713?$684_547_PNG$"
+                alt="SAMSUNG Neo QLED 4K Smart TV 65 inch"
+              />
+            </div>
+            <div class="product-body">
+              <h3 class="product-title">
+                SAMSUNG Neo QLED 4K Smart TV 2024 NEW MODEL 65S55L, 65 inch
+              </h3>
+              <p class="product-desc">
+                Stunning 4K Neo QLED with deep contrast, next‑gen processor, and premium smart experience.
+              </p>
+              <div class="product-meta">
+                <div>
+                  <div class="price-main">₹1,79,999</div>
+                  <div class="price-sub">Flagship performance</div>
+                </div>
+              </div>
+              <div class="product-actions">
+                <button class="btn btn-outline btn-small">Add to Cart</button>
+                <a href="SHOP PAGE.html" class="btn btn-primary btn-small">View Details</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      &copy; <span id="year"></span> TvHub.com &mdash; Premium TVs, curated for you.
+    </footer>
+  </div>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+
+  <script>
+const userName = localStorage.getItem("userName");
+
+if (userName) {
+  document.getElementById("welcomeUser").innerText = "Welcome " + userName;
+
+  // hide login button
+  document.getElementById("loginBtn").style.display = "none";
+document.getElementById("logoutBtn").style.display = "inline-block";
+}
+
+// Logout function
+document.getElementById("logoutBtn").addEventListener("click", function () {
+
+  localStorage.removeItem("userEmail");
+  localStorage.removeItem("userName");
+
+  window.location.href = "LOGIN.html";
+});
+</script>
+
+</body>
+</html>
