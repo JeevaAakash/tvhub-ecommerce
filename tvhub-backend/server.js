@@ -14,17 +14,16 @@ const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/tvhub";
 
 app.use(cors({
-app.use(cors({
   origin: "*",
+  methods: ["GET", "POST", "PUT", "DELETE"],
   credentials: true
-}));  credentials: true
 }));
 
 app.use(express.json());
 
 mongoose.connect(MONGODB_URI)
-.then(() => console.log("MongoDB Connected"))
-.catch((err) => console.log("MongoDB Connection Error:", err));
+  .then(() => console.log("MongoDB Connected"))
+  .catch((err) => console.log("MongoDB Connection Error:", err));
 
 app.use("/api/auth", authRoutes);
 app.use("/api/orders", orderRoutes);
