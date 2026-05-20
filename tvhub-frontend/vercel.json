@@ -4,10 +4,6 @@
   "outputDirectory": ".",
   "framework": "static",
   "public": true,
-  "env": {
-    "REACT_APP_API_URL": {
-      "description": "Backend API URL"
-    }
   },
   "headers": [
     {

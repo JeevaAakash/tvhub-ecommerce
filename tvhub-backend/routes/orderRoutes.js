@@ -4,7 +4,6 @@ const Order = require("../models/Order");
 const router = express.Router();
 
 
-// SAVE ORDER
 router.post("/", async (req, res) => {
 
   try {
@@ -37,7 +36,6 @@ router.post("/", async (req, res) => {
 });
 
 
-// GET USER ORDERS
 router.get("/:email", async (req, res) => {
 
   try {

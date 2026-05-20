@@ -4,14 +4,12 @@ const User = require("../models/User");
 
 const router = express.Router();
 
-// REGISTER
 router.post("/register", async (req, res) => {
 
   try {
 
     const { name, email, password } = req.body;
 
-    // Check existing user
     const existingUser = await User.findOne({ email });
 
     if (existingUser) {
@@ -20,10 +18,8 @@ router.post("/register", async (req, res) => {
       });
     }
 
-    // Hash password
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Create user
     const newUser = new User({
       name,
       email,
@@ -48,7 +44,6 @@ router.post("/register", async (req, res) => {
 
 });
 
-// LOGIN
 router.post("/login", async (req, res) => {
 
   try {

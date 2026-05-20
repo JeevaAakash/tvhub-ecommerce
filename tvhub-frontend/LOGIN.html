@@ -8,7 +8,6 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
 
   <style>
-    /* --- Your Entire CSS (UNCHANGED) --- */
     :root {
       --primary: #ff6b00;
       --primary-dark: #e05200;
@@ -88,7 +87,6 @@
     </div>
   </div>
 
-  <!-- ✅ BACKEND LOGIN SCRIPT ADDED -->
 <script>
 document.getElementById("loginForm").addEventListener("submit", async function(e) {
   e.preventDefault();
@@ -115,7 +113,7 @@ document.getElementById("loginForm").addEventListener("submit", async function(e
 
     if (response.ok) {
   localStorage.setItem("userEmail", data.email);
-  localStorage.setItem("userName", data.name);   // store username
+  localStorage.setItem("userName", data.name);   
   window.location.href = "code.html";
 }
   } catch (error) {
