@@ -14,8 +14,10 @@ const MONGODB_URI =
   process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/tvhub";
 
 app.use(cors({
-  origin: "http://127.0.0.1:5500",
+app.use(cors({
+  origin: "*",
   credentials: true
+}));  credentials: true
 }));
 
 app.use(express.json());
