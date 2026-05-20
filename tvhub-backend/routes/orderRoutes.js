@@ -4,10 +4,10 @@ const Order = require("../models/Order");
 const router = express.Router();
 
 
-// ✅ PLACE ORDER
+// SAVE ORDER
 router.post("/", async (req, res) => {
+
   try {
-    console.log("Order data received:", req.body);
 
     const { userEmail, productName, price, paymentMethod } = req.body;
 
@@ -20,29 +20,44 @@ router.post("/", async (req, res) => {
 
     await newOrder.save();
 
-    res.status(200).json({ message: "Order placed successfully" });
+    res.status(200).json({
+      message: "Order placed successfully"
+    });
 
   } catch (error) {
+
     console.log("Order Error:", error);
-    res.status(500).json({ message: "Server error" });
+
+    res.status(500).json({
+      message: "Server error"
+    });
+
   }
+
 });
 
 
-// ✅ GET ORDERS BY USER EMAIL (My Orders Page)
+// GET USER ORDERS
 router.get("/:email", async (req, res) => {
+
   try {
-    const userEmail = req.params.email;
 
-    const orders = await Order.find({ userEmail });
+    const orders = await Order.find({
+      userEmail: req.params.email
+    }).sort({ createdAt: -1 });
 
-    res.status(200).json(orders);
+    res.json(orders);
 
   } catch (error) {
-    console.log("Fetch Orders Error:", error);
-    res.status(500).json({ message: "Server error" });
-  }
-});
 
+    console.log(error);
+
+    res.status(500).json({
+      message: "Error fetching orders"
+    });
+
+  }
+
+});
 
 module.exports = router;

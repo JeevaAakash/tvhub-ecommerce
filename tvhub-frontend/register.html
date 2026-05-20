@@ -182,33 +182,55 @@
     </div>
   </div>
 
-  <script>
-    document.getElementById("registerForm").addEventListener("submit", async function(e) {
-      e.preventDefault();
+ <script>
+document.getElementById("registerForm").addEventListener("submit", async function(e) {
 
-      const name = document.getElementById("name").value;
-      const email = document.getElementById("email").value;
-      const password = document.getElementById("password").value;
+  e.preventDefault();
 
-      try {
-        const response = await fetch("http://localhost:5000/api/auth/register", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ name, email, password })
-        });
+  const name = document.getElementById("name").value.trim();
+  const email = document.getElementById("email").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-        const data = await response.json();
-        alert(data.message);
+  try {
 
-        if (data.message === "User Registered Successfully") {
-          window.location.href = "LOGIN.html";
-        }
-
-      } catch (error) {
-        alert("Server not responding");
-      }
+    const response = await fetch("http://127.0.0.1:5000/api/auth/register", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({
+        name: name,
+        email: email,
+        password: password
+      })
     });
-  </script>
 
+    // Check if server returned proper JSON
+    const data = await response.json();
+
+    console.log(data);
+
+    if (response.ok) {
+
+      alert(data.message || "User Registered Successfully");
+
+      window.location.href = "LOGIN.html";
+
+    } else {
+
+      alert(data.message || "Registration Failed");
+
+    }
+
+  } catch (error) {
+
+    console.log("REGISTER ERROR:", error);
+
+    alert("Backend connection failed");
+
+  }
+
+});
+</script>
 </body>
 </html>
