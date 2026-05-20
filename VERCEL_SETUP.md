@@ -65,13 +65,13 @@ Since you're using vanilla JavaScript (not React), update your HTML files:
 #### Before (hardcoded URL):
 ```javascript
 // In your JavaScript files
-fetch('http://localhost:5000/api/orders')
+fetch('https://tvhub-backend.onrender.com/api/orders')
 ```
 
 #### After (using environment variable):
 ```javascript
 // In your JavaScript files
-const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000/api';
+const API_URL = process.env.REACT_APP_API_URL || 'https://tvhub-backend.onrender.com/api';
 
 fetch(`${API_URL}/orders`)
 ```
@@ -171,7 +171,7 @@ MongoDB Atlas
 
 ### ❌ Mistake 3: Wrong Backend URL
 ```
-❌ http://localhost:5000/api (This is for local development)
+❌ https://tvhub-backend.onrender.com/api (This is for local development)
 ✅ https://your-render-app.onrender.com/api (This is for production)
 ```
 
