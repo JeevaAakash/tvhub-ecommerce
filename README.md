@@ -1,434 +1,191 @@
-﻿#  E-Commerce TV Website
+# E-Commerce TV Website
 
-A full-stack e-commerce platform for buying and selling televisions. Built with HTML/CSS/JavaScript frontend and Node.js/Express/MongoDB backend.
-
-##  Live Demo
-- **Frontend**: https://your-vercel-app.vercel.app
-- **Backend API**: https://your-render-app.onrender.com
+A full-stack e-commerce website built for browsing and purchasing televisions online. This project includes a frontend created using HTML, CSS, and JavaScript, with a backend powered by Node.js, Express.js, and MongoDB.
 
 ---
 
-## 📋 Table of Contents
-- [Project Structure](#project-structure)
-- [Technology Stack](#technology-stack)
-- [Prerequisites](#prerequisites)
-- [Local Setup](#local-setup)
-- [Deployment Guide](#deployment-guide)
-- [Environment Variables](#environment-variables)
-- [Troubleshooting](#troubleshooting)
+## Features
+
+* User registration and login
+* Browse available TVs
+* Add products to cart
+* Place and manage orders
+* Backend API integration
+* Responsive UI design
 
 ---
 
-##  Project Structure
-
-```
-Ecommerce website/
-├── README.md                           # This file
-├── DEPLOYMENT.md                       # Detailed deployment guide
-├── .gitignore                          # Git ignore rules
-├── .env.local.example                  # Frontend env template
-├── .env.local                          # Frontend env (local only)
-├── vercel.json                         # Vercel config
-├── render.yaml                         # Render config
-│
-├── Frontend Files (HTML/CSS/JS)
-├── About.html
-├── AddtoCart.html
-├── Contact.html
-├── LOGIN.html
-├── Orders.html
-├── SHOPPAGE.html
-├── checkout.html
-├── code.html
-├── register.html
-├── server.js                           # Frontend server
-│
-└── tvhub-backend/                      # Backend folder
-    ├── package.json                    # Dependencies
-    ├── server.js                       # Express server
-    ├── .env.example                    # Backend env template
-    ├── models/
-    │   ├── User.js                     # User schema
-    │   └── Order.js                    # Order schema
-    └── routes/
-        ├── authRoutes.js               # Authentication routes
-        └── orderRoutes.js              # Orders routes
-```
-
----
-
-##  Technology Stack
+## Tech Stack
 
 ### Frontend
-- HTML5
-- CSS3
-- JavaScript (Vanilla)
-- Vercel (Hosting)
+
+* HTML5
+* CSS3
+* JavaScript
 
 ### Backend
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose ODM
-- JWT Authentication
-- bcryptjs
-- CORS
 
-### Infrastructure
-- **Database**: MongoDB Atlas (Cloud)
-- **Frontend Hosting**: Vercel
-- **Backend Hosting**: Render
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* JWT Authentication
 
----
+### Deployment
 
-##  Prerequisites
-
-Before starting, you need:
-
-1. **Node.js** (v18 or higher) - [Download](https://nodejs.org/)
-2. **Git** - [Download](https://git-scm.com/)
-3. **MongoDB Atlas Account** - [Sign up](https://www.mongodb.com/cloud/atlas)
-4. **GitHub Account** - [Sign up](https://github.com/)
-5. **Render Account** - [Sign up](https://render.com/)
-6. **Vercel Account** - [Sign up](https://vercel.com/)
+* Frontend → Vercel
+* Backend → Render
+* Database → MongoDB Atlas
 
 ---
 
-##  Local Setup
+## Project Structure
 
-### 1. Clone the Repository
+```bash
+E-Commerce_TV_Website
+│
+├── Frontend Files
+│   ├── About.html
+│   ├── SHOPPAGE.html
+│   ├── LOGIN.html
+│   ├── checkout.html
+│   └── ...
+│
+├── tvhub-backend
+│   ├── models
+│   ├── routes
+│   ├── server.js
+│   └── package.json
+│
+├── README.md
+├── vercel.json
+└── render.yaml
+```
+
+---
+
+## Running Locally
+
+### Clone Repository
+
 ```bash
 git clone https://github.com/JeevaAakash/E-Commerce_TV_Website.git
-cd "E-Commerce_TV_Website"
+cd E-Commerce_TV_Website
 ```
 
-### 2. Backend Setup
+### Install Backend Dependencies
 
-#### 2.1 Navigate to backend folder
 ```bash
 cd tvhub-backend
-```
-
-#### 2.2 Install dependencies
-```bash
 npm install
 ```
 
-#### 2.3 Create `.env` file
-```bash
-# Copy from .env.example
-cp .env.example .env
+### Configure Environment Variables
 
-# Edit .env with your values
-# MONGODB_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/tvhub
-# PORT=5000
-# FRONTEND_URL=http://localhost:3000
-# JWT_SECRET=your-secret-key-123
+Create `.env` inside `tvhub-backend`.
+
+```env
+MONGODB_URI=your_mongodb_connection
+PORT=5000
+JWT_SECRET=your_secret_key
+FRONTEND_URL=http://localhost:3000
 ```
 
-#### 2.4 Start backend server
+Start backend:
+
 ```bash
 npm start
 ```
- Backend runs on: `https://tvhub-backend.onrender.com`
 
-### 3. Frontend Setup
+---
 
-#### 3.1 Create `.env.local` file in root directory
+### Frontend Setup
+
+Create `.env.local`
+
+```env
+REACT_APP_API_URL=http://localhost:5000/api
+```
+
+Open:
+
 ```bash
-# In root directory (not in tvhub-backend)
-REACT_APP_API_URL=https://tvhub-backend.onrender.com/api
-```
-
-#### 3.2 Test frontend
-Open in browser:
-```
 http://localhost:3000
 ```
 
 ---
 
-##  Deployment Guide
+## Deployment
 
-### STEP 1: Set Up MongoDB Atlas (Database)
+### Backend (Render)
 
-#### 1.1 Create MongoDB Atlas Account
-1. Go to [mongodb.com/cloud/atlas](https://www.mongodb.com/cloud/atlas)
-2. Click "Sign in" or create new account
-3. Create a new project
+1. Connect GitHub repository
+2. Select **Web Service**
+3. Set build command:
 
-#### 1.2 Create a Cluster
-1. Click "Create" → "Cluster"
-2. Choose **M0 (Free Tier)**
-3. Select your preferred region
-4. Click "Create Cluster" (takes 2-3 minutes)
-
-#### 1.3 Create Database User
-1. Go to "Database Access"
-2. Click "Add New Database User"
-3. Choose "Password" authentication
-4. Enter username: `tvhub_user`
-5. Enter password: Create a strong password (save it!)
-6. Click "Add User"
-
-#### 1.4 Get Connection String
-1. Go back to "Clusters"
-2. Click "Connect" on your cluster
-3. Choose "Connect your application"
-4. Copy the connection string
-5. Replace `<password>` with your password
-6. It should look like:
-```
-mongodb+srv://tvhub_user:PASSWORD@cluster0.xxxxx.mongodb.net/tvhub?retryWrites=true&w=majority
-```
-
- Save this connection string!
-
----
-
-### STEP 2: Deploy Backend to Render
-
-#### 2.1 Prepare Render Deploy
-1. Go to [render.com](https://render.com)
-2. Click "Sign up" (use GitHub account recommended)
-3. After signup, click "+ New" → "Web Service"
-
-#### 2.2 Connect GitHub Repository
-1. Click "Connect Account"
-2. Authorize Render to access GitHub
-3. Select repository: `E-Commerce_TV_Website`
-4. Click "Connect"
-
-#### 2.3 Configure Web Service
-| Field | Value |
-|-------|-------|
-| **Name** | tvhub-backend |
-| **Environment** | Node |
-| **Region** | Oregon (or closest to you) |
-| **Branch** | main |
-| **Build Command** | `cd tvhub-backend && npm install` |
-| **Start Command** | `cd tvhub-backend && npm start` |
-| **Plan** | Free |
-
-#### 2.4 Add Environment Variables
-Click "Advanced" → "Add Environment Variable"
-
-| Key | Value |
-|-----|-------|
-| MONGODB_URI | Your MongoDB connection string from Step 1.4 |
-| PORT | 10000 |
-| NODE_ENV | production |
-| FRONTEND_URL | https://your-vercel-app.vercel.app |
-| JWT_SECRET | Generate random: `openssl rand -hex 32` |
-
-#### 2.5 Deploy
-1. Click "Create Web Service"
-2. Render starts deploying (5-10 minutes)
-3. Wait for green checkmark "Live"
-
-#### 2.6 Get Backend URL
-- Your backend URL: `https://tvhub-backend.onrender.com`
-- Test it: `https://tvhub-backend.onrender.com/health`
-
- Save your Render backend URL!
-
----
-
-### STEP 3: Deploy Frontend to Vercel
-
-#### 3.1 Go to Vercel
-1. Go to [vercel.com](https://vercel.com)
-2. Click "Sign up" (use GitHub recommended)
-3. After signup, click "Add New" → "Project"
-
-#### 3.2 Import GitHub Repository
-1. Click "Import Project"
-2. Paste repository URL: `https://github.com/JeevaAakash/E-Commerce_TV_Website.git`
-3. Click "Continue"
-
-#### 3.3 Configure Project
-| Field | Value |
-|-------|-------|
-| **Project Name** | ecommerce-tv-website |
-| **Framework Preset** | Other |
-| **Root Directory** | ./ (root) |
-
-#### 3.4 Add Environment Variables
-Click "Environment Variables"
-
-| Key | Value |
-|-----|-------|
-| REACT_APP_API_URL | https://tvhub-backend.onrender.com/api |
-
-#### 3.5 Deploy
-1. Click "Deploy"
-2. Wait for deployment to complete (3-5 minutes)
-3. Get your frontend URL
-
- Your frontend is now live!
-
----
-
-## 🔧 Environment Variables
-
-### Backend (.env in tvhub-backend/)
-```env
-# Database
-MONGODB_URI=mongodb+srv://username:password@cluster0.xxxxx.mongodb.net/tvhub
-
-# Server
-PORT=10000
-NODE_ENV=production
-
-# Frontend
-FRONTEND_URL=https://your-vercel-app.vercel.app
-
-# Security
-JWT_SECRET=your-secret-key-generated
-```
-
-### Frontend (.env.local in root)
-```env
-REACT_APP_API_URL=https://your-render-app.onrender.com/api
-```
-
----
-
-##  Verification Checklist
-
-After deployment, verify everything:
-
-### Backend Health Check
 ```bash
-# Test health endpoint
-curl https://tvhub-backend.onrender.com/health
-
-# Should return:
-# {"status":"Server is running"}
+cd tvhub-backend && npm install
 ```
 
-### Frontend Test
-1. Visit your Vercel URL: `https://your-vercel-app.vercel.app`
-2. Check browser console (F12) for any errors
-3. Try accessing the API endpoints
+4. Start command:
 
-### Database Connection
-1. Check MongoDB Atlas logs for successful connections
-2. Verify data is being saved (place a test order)
-
----
-
-##  Troubleshooting
-
-### Issue: Backend Not Starting on Render
-```
-Error: Cannot find module 'dotenv'
-```
-**Solution:**
-1. Go to Render dashboard
-2. Click your service → "Settings"
-3. Click "Redeploy" → "Redeploy latest commit"
-
-### Issue: CORS Errors in Console
-```
-Access to XMLHttpRequest blocked by CORS
-```
-**Solution:**
-1. Check `FRONTEND_URL` in Render environment variables
-2. Must match exactly your Vercel URL (with or without trailing slash)
-3. Redeploy backend after changing
-
-### Issue: API Calls Return 404
-```
-Error: 404 Not Found
-```
-**Solution:**
-1. Verify `REACT_APP_API_URL` in Vercel environment
-2. Should be: `https://your-render-app.onrender.com/api`
-3. Not: `https://your-render-app.onrender.com/api/` (no trailing slash)
-4. Redeploy frontend
-
-### Issue: MongoDB Connection Timeout
-```
-MongoError: connect ECONNREFUSED
-```
-**Solution:**
-1. Go to MongoDB Atlas
-2. Click "Network Access"
-3. Click "Add IP Address"
-4. Choose "Allow access from anywhere" (0.0.0.0/0)
-5. Click "Confirm"
-
-### Issue: Render Keeps Sleeping
-Render free tier hibernates after 15 minutes of inactivity.
-**Solution:**
-- Upgrade to paid plan, OR
-- Use external monitoring service to ping every 10 minutes
-
-### Issue: Changes Not Showing After Deploy
-**Solution:**
-1. Hard refresh browser: `Ctrl+Shift+R` (Windows) or `Cmd+Shift+R` (Mac)
-2. Clear cache: DevTools → Application → Clear Storage
-3. Redeploy on Render/Vercel
-
----
-
-##  Making Changes & Redeploying
-
-### After Making Code Changes:
 ```bash
-# 1. Commit changes
-git add .
-git commit -m "Your message"
-
-# 2. Push to GitHub
-git push origin main
-
-# 3. Automatic Deploy
-# Render and Vercel automatically deploy on push
-# Check deployment status in their dashboards
+cd tvhub-backend && npm start
 ```
+
+5. Add environment variables and deploy
 
 ---
 
-##  API Endpoints
+### Frontend (Vercel)
+
+1. Import GitHub repository
+2. Select root directory
+3. Add:
+
+```env
+REACT_APP_API_URL=your_backend_url/api
+```
+
+4. Deploy project
+
+---
+
+## API Routes
 
 ### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login user
-- `POST /api/auth/logout` - Logout user
+
+```http
+POST /api/auth/register
+POST /api/auth/login
+POST /api/auth/logout
+```
 
 ### Orders
-- `GET /api/orders` - Get all orders
-- `POST /api/orders` - Create new order
-- `GET /api/orders/:id` - Get order by ID
-- `PUT /api/orders/:id` - Update order
-- `DELETE /api/orders/:id` - Delete order
+
+```http
+GET /api/orders
+POST /api/orders
+PUT /api/orders/:id
+DELETE /api/orders/:id
+```
 
 ---
 
-##  Support & Issues
+## Future Improvements
 
-- **Backend Issues**: Check [DEPLOYMENT.md](DEPLOYMENT.md)
-- **GitHub Issues**: Report bugs on [GitHub Issues](https://github.com/JeevaAakash/E-Commerce_TV_Website/issues)
-- **Render Support**: [Render Docs](https://render.com/docs)
-- **Vercel Support**: [Vercel Docs](https://vercel.com/docs)
-- **MongoDB Support**: [MongoDB Docs](https://docs.mongodb.com/)
-
----
-
-##  License
-
-ISC License
+* Payment gateway integration
+* Product search and filtering
+* Admin dashboard
+* Order tracking
+* Product recommendations
 
 ---
 
-##  Congratulations!
+## Author
 
-Your E-Commerce TV Website is now LIVE! 🚀
+**Jeeva Aakash**
 
-- **Frontend**: https://your-vercel-app.vercel.app
-- **Backend API**: https://tvhub-backend.onrender.com
-- **GitHub**: https://github.com/JeevaAakash/E-Commerce_TV_Website
+Built as a full-stack web development project to explore frontend, backend, deployment, and database integration.
 
-Share your project and celebrate! 🎊
+---
