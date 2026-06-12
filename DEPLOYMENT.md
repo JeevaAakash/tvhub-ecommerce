@@ -1,21 +1,19 @@
 # E-Commerce TV Website – Deployment Guide
 
-This project is split into two parts:
+This project is deployed as two separate parts:
 
-* **Frontend** → Static HTML, CSS, and JavaScript (deployed using Vercel)
-* **Backend** → Node.js + MongoDB API (`tvhub-backend`) (deployed using Render)
+* **Frontend** → HTML, CSS, JavaScript (Hosted on Vercel)
+* **Backend** → Node.js + Express + MongoDB (Hosted on Render)
 
 ---
 
-## Backend Deployment (Render)
+## Backend Setup (Render)
 
-### 1. Configure Environment Variables
+### Step 1: Create Environment Variables
 
-Inside the `tvhub-backend` folder, create a `.env` file.
+Inside `tvhub-backend`, create a `.env` file.
 
-You can use `.env.example` as a reference.
-
-Add the following values:
+Example:
 
 ```env
 MONGODB_URI=your_mongodb_connection_string
@@ -25,11 +23,16 @@ NODE_ENV=production
 JWT_SECRET=your_secret_key
 ```
 
-### 2. Set Up MongoDB Atlas
+You can copy values from `.env.example`.
 
-* Create a free cluster in MongoDB Atlas
-* Create a database user
-* Copy your connection string
+---
+
+### Step 2: Create MongoDB Database
+
+1. Open MongoDB Atlas
+2. Create a free cluster
+3. Add a database user
+4. Copy the connection string
 
 Example:
 
@@ -37,14 +40,18 @@ Example:
 mongodb+srv://username:password@cluster.mongodb.net/tvhub
 ```
 
-Paste this into `MONGODB_URI`.
+Paste the URL into `MONGODB_URI`.
 
-### 3. Deploy Backend to Render
+---
 
-1. Push your project to GitHub
-2. Open Render and create a **New Web Service**
-3. Connect your repository
-4. Use these settings:
+### Step 3: Deploy Backend
+
+1. Push the project to GitHub
+2. Open Render
+3. Create **New Web Service**
+4. Connect your repository
+
+Use:
 
 ```txt
 Environment: Node
@@ -55,135 +62,138 @@ Start Command:
 cd tvhub-backend && npm start
 ```
 
-Additional settings:
+Other settings:
 
 ```txt
-Region: Any preferred region
 Plan: Free
+Region: Preferred Region
 ```
 
-Add all environment variables before deploying.
+Add environment variables and deploy.
 
-After deployment, your backend URL will look like:
+Backend URL example:
 
 ```txt
-https://your-app-name.onrender.com
+https://your-backend.onrender.com
 ```
 
 ---
 
-## Frontend Deployment (Vercel)
+## Frontend Setup (Vercel)
 
-### 1. Configure API URL
+### Configure API URL
 
-Create `.env.local` in the project root:
+Create `.env.local` in project root:
 
 ```env
-REACT_APP_API_URL=https://your-render-app.onrender.com/api
+REACT_APP_API_URL=https://your-backend.onrender.com/api
 ```
 
-If needed, update frontend JavaScript to use this environment variable.
+---
 
-### 2. Deploy to Vercel
+### Deploy Frontend
 
-1. Import the GitHub repository into Vercel
-2. Configure:
+1. Open Vercel
+2. Import GitHub repository
+3. Configure:
 
 ```txt
-Project Name: E-Commerce_TV_Website
-Framework Preset: Other
-Root Directory: ./
+Project Name:
+E-Commerce_TV_Website
+
+Framework:
+Other
+
+Root Directory:
+./
 ```
 
-Add environment variable:
+Add:
 
 ```env
-REACT_APP_API_URL=your_render_backend_url
+REACT_APP_API_URL=your_backend_url
 ```
 
-Deploy the project.
+Click **Deploy**.
 
 Frontend URL example:
 
 ```txt
-https://your-project-name.vercel.app
+https://your-project.vercel.app
 ```
 
 ---
 
-## Testing
+## Testing Deployment
 
-### Backend Health Check
+### Backend
 
 ```bash
-curl https://your-render-app.onrender.com/health
+curl https://your-backend.onrender.com/health
+```
+
+Expected:
+
+```json
+{
+ "status":"Server running"
+}
 ```
 
 ### Frontend
 
-Open:
+Open your Vercel URL and check:
 
-```txt
-https://your-project-name.vercel.app
-```
-
-Verify:
-
-* Homepage loads correctly
-* Login/Register works
-* Products load from database
-* Add to Cart works
+* Home page loads
+* User login works
+* Product list appears
+* Cart functions correctly
 * API requests return data
 
 ---
 
-## Common Issues
+## Common Problems
 
-### Backend loading slowly
+### Render takes time to load
 
-Render free instances may sleep after inactivity. First request can take a few seconds.
+Free instances sleep after inactivity. First request may take time.
 
-### CORS errors
+### CORS Error
 
-Make sure `FRONTEND_URL` exactly matches your deployed Vercel URL.
+Make sure `FRONTEND_URL` matches your deployed frontend URL.
 
-### MongoDB connection failed
+### MongoDB Connection Error
 
 Check:
 
 * Connection string
-* Database user permissions
-* Network access (`0.0.0.0/0` if required)
+* Database permissions
+* Network access settings
 
-### Environment variables not updating
+### Environment Variables Not Working
 
-Redeploy the service after changing environment values.
+Save changes and redeploy.
 
 ---
 
-## Project Structure
+## Folder Structure
 
 ```txt
-Ecommerce website/
+E-Commerce_TV_Website
 │
-├── .env.local.example
-├── .gitignore
-├── vercel.json
-├── render.yaml
+├── Frontend Files
 ├── README.md
-├── About.html
-├── AddtoCart.html
-├── ...
+├── render.yaml
+├── vercel.json
 │
-└── tvhub-backend/
-    ├── .env.example
+└── tvhub-backend
     ├── server.js
     ├── package.json
-    ├── models/
-    ├── routes/
-    └── ...
+    ├── models
+    ├── routes
+    └── .env.example
 ```
 
 ---
 
-Project successfully supports full-stack deployment using **Vercel + Render + MongoDB Atlas**.
+Deployment completed using **Vercel + Render + MongoDB Atlas**.
