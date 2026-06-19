@@ -1,17 +1,29 @@
-# E-Commerce TV Website
+# TVHub – Full Stack E-Commerce Website
 
-A full-stack e-commerce website built for browsing and purchasing televisions online. This project includes a frontend created using HTML, CSS, and JavaScript, with a backend powered by Node.js, Express.js, and MongoDB.
+TVHub is a full-stack e-commerce web application developed for browsing and purchasing televisions online. The project was built to strengthen my understanding of frontend development, backend APIs, database integration, authentication, and full-stack deployment.
+
+The website provides a simple shopping experience where users can create accounts, explore products, manage orders, and interact with a responsive interface.
+
+---
+
+## Live Demo
+
+ Website: https://tvhub-ecommerce.vercel.app
+
+ GitHub Repository: https://github.com/JeevaAakash/tvhub-ecommerce
 
 ---
 
 ## Features
 
-* User registration and login
-* Browse available TVs
+* User registration and login system
+* Browse and explore available TV products
 * Add products to cart
 * Place and manage orders
+* Authentication using JWT
 * Backend API integration
-* Responsive UI design
+* Responsive design for different devices
+* Database connectivity with MongoDB
 
 ---
 
@@ -42,18 +54,20 @@ A full-stack e-commerce website built for browsing and purchasing televisions on
 ## Project Structure
 
 ```bash
-E-Commerce_TV_Website
+tvhub-ecommerce
 │
-├── Frontend Files
-│   ├── About.html
-│   ├── SHOPPAGE.html
+├── Frontend
+│   ├── HOME.html
 │   ├── LOGIN.html
+│   ├── register.html
+│   ├── SHOPPAGE.html
 │   ├── checkout.html
-│   └── ...
+│   └── assets
 │
 ├── tvhub-backend
 │   ├── models
 │   ├── routes
+│   ├── controllers
 │   ├── server.js
 │   └── package.json
 │
@@ -64,31 +78,30 @@ E-Commerce_TV_Website
 
 ---
 
-## Running Locally
+## Run Locally
 
 ### Clone Repository
 
 ```bash
-git clone https://github.com/JeevaAakash/E-Commerce_TV_Website.git
-cd E-Commerce_TV_Website
+git clone https://github.com/JeevaAakash/tvhub-ecommerce.git
+cd tvhub-ecommerce
 ```
 
-### Install Backend Dependencies
+### Backend Setup
+
+Install dependencies:
 
 ```bash
 cd tvhub-backend
 npm install
 ```
 
-### Configure Environment Variables
-
-Create `.env` inside `tvhub-backend`.
+Create `.env`
 
 ```env
-MONGODB_URI=your_mongodb_connection
+MONGODB_URI=your_connection_string
 PORT=5000
 JWT_SECRET=your_secret_key
-FRONTEND_URL=http://localhost:3000
 ```
 
 Start backend:
@@ -101,64 +114,23 @@ npm start
 
 ### Frontend Setup
 
-Create `.env.local`
+Open frontend files using Live Server or your preferred local environment.
+
+Backend API:
 
 ```env
-REACT_APP_API_URL=http://localhost:5000/api
-```
-
-Open:
-
-```bash
-http://localhost:3000
+http://localhost:5000/api
 ```
 
 ---
 
-## Deployment
-
-### Backend (Render)
-
-1. Connect GitHub repository
-2. Select **Web Service**
-3. Set build command:
-
-```bash
-cd tvhub-backend && npm install
-```
-
-4. Start command:
-
-```bash
-cd tvhub-backend && npm start
-```
-
-5. Add environment variables and deploy
-
----
-
-### Frontend (Vercel)
-
-1. Import GitHub repository
-2. Select root directory
-3. Add:
-
-```env
-REACT_APP_API_URL=your_backend_url/api
-```
-
-4. Deploy project
-
----
-
-## API Routes
+## API Endpoints
 
 ### Authentication
 
 ```http
 POST /api/auth/register
 POST /api/auth/login
-POST /api/auth/logout
 ```
 
 ### Orders
@@ -174,18 +146,31 @@ DELETE /api/orders/:id
 
 ## Future Improvements
 
-* Payment gateway integration
+* Online payment integration
 * Product search and filtering
-* Admin dashboard
+* Admin management panel
 * Order tracking
-* Product recommendations
+* Wishlist functionality
+* Product recommendation system
+
+---
+
+## Learning Outcome
+
+Through this project, I gained hands-on experience in:
+
+* Full Stack Development
+* REST API Integration
+* MongoDB Database Management
+* Authentication & Security
+* Deployment using Vercel and Render
+* Debugging real-world deployment issues
 
 ---
 
 ## Author
 
-**Jeeva Aakash**
+Jeeva Aakash S
+B.Tech Information Technology
 
-Built as a full-stack web development project to explore frontend, backend, deployment, and database integration.
-
----
+Built as a personal full-stack project to improve practical web development skills and deployment experience.
