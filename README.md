@@ -1,33 +1,37 @@
 # TVHub – Full Stack E-Commerce Website
 
-TVHub is a full-stack e-commerce web application developed for browsing and purchasing televisions online. The project was built to strengthen my understanding of frontend development, backend APIs, database integration, authentication, and full-stack deployment.
+TVHub is a full-stack e-commerce website developed to provide a simple and smooth experience for browsing and purchasing televisions online.
 
-The website provides a simple shopping experience where users can create accounts, explore products, manage orders, and interact with a responsive interface.
+This project was built to improve my practical understanding of frontend development, backend integration, authentication, database management, and deployment.
+
+The platform allows users to create accounts, explore products, place orders, and experience a responsive shopping interface.
 
 ---
 
 ## Live Demo
 
- Website: https://tvhub-ecommerce.vercel.app
+🌐 Website
+https://tvhub-ecommerce.vercel.app
 
- GitHub Repository: https://github.com/JeevaAakash/tvhub-ecommerce
+💻 GitHub Repository
+https://github.com/JeevaAakash/tvhub-ecommerce
 
 ---
 
 ## Features
 
-* User registration and login system
-* Browse and explore available TV products
-* Add products to cart
-* Place and manage orders
-* Authentication using JWT
+* User registration and login
+* Browse TV products
+* Add products and place orders
+* Secure authentication
+* Responsive user interface
 * Backend API integration
-* Responsive design for different devices
-* Database connectivity with MongoDB
+* Order management
+* MongoDB database integration
 
 ---
 
-## Tech Stack
+## Technologies Used
 
 ### Frontend
 
@@ -56,115 +60,36 @@ The website provides a simple shopping experience where users can create account
 ```bash
 tvhub-ecommerce
 │
-├── Frontend
-│   ├── HOME.html
-│   ├── LOGIN.html
-│   ├── register.html
-│   ├── SHOPPAGE.html
-│   ├── checkout.html
-│   └── assets
-│
+├── tvhub-frontend
 ├── tvhub-backend
-│   ├── models
-│   ├── routes
-│   ├── controllers
-│   ├── server.js
-│   └── package.json
-│
 ├── README.md
-├── vercel.json
-└── render.yaml
+├── render.yaml
+└── vercel.json
 ```
 
 ---
 
-## Run Locally
-
-### Clone Repository
-
-```bash
-git clone https://github.com/JeevaAakash/tvhub-ecommerce.git
-cd tvhub-ecommerce
-```
-
-### Backend Setup
-
-Install dependencies:
-
-```bash
-cd tvhub-backend
-npm install
-```
-
-Create `.env`
-
-```env
-MONGODB_URI=your_connection_string
-PORT=5000
-JWT_SECRET=your_secret_key
-```
-
-Start backend:
-
-```bash
-npm start
-```
-
----
-
-### Frontend Setup
-
-Open frontend files using Live Server or your preferred local environment.
-
-Backend API:
-
-```env
-http://localhost:5000/api
-```
-
----
-
-## API Endpoints
-
-### Authentication
-
-```http
-POST /api/auth/register
-POST /api/auth/login
-```
-
-### Orders
-
-```http
-GET /api/orders
-POST /api/orders
-PUT /api/orders/:id
-DELETE /api/orders/:id
-```
-
----
-
-## Future Improvements
+## Future Enhancements
 
 * Online payment integration
 * Product search and filtering
 * Admin management panel
 * Order tracking
 * Wishlist functionality
-* Product recommendation system
+* Enhanced mobile responsiveness
 
 ---
 
-## Learning Outcome
+## Learning Outcomes
 
-Through this project, I gained hands-on experience in:
+This project helped me gain experience in:
 
 * Full Stack Development
 * REST API Integration
-* MongoDB Database Management
-* Authentication & Security
-* Deployment using Vercel and Render
-* Debugging real-world deployment issues
+* Authentication and Security
+* Database Management
+* Deployment and Hosting
+* Debugging and Problem Solving
 
 ---
 
@@ -172,5 +97,3 @@ Through this project, I gained hands-on experience in:
 
 Jeeva Aakash S
 B.Tech Information Technology
-
-Built as a personal full-stack project to improve practical web development skills and deployment experience.
